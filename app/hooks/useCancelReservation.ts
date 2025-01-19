@@ -13,21 +13,21 @@ type UseChangeReservationDataOptions = {
 export const useCancelReservationData = ({
   reservationId,
 }: UseChangeReservationDataOptions) => {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
-  const { data: currentUserData } = useCurrentUser();
+  // const { data: currentUserData } = useCurrentUser();
 
-  const mutation = useMutation({
-    mutationFn: () => cancelReservation(reservationId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: reservation.user(currentUserData!.id!),
-      });
-    },
-    onError: (error) => {
-      console.error(error);
-    },
-  });
+  // const mutation = useMutation({
+  //   mutationFn: () => cancelReservation(reservationId),
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({
+  //       queryKey: reservation.user(currentUserData!.id!),
+  //     });
+  //   },
+  //   onError: (error) => {
+  //     console.error(error);
+  //   },
+  // });
 
-  return mutation;
+  // return mutation;
 };

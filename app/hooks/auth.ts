@@ -1,88 +1,71 @@
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useForm } from 'react-hook-form';
+import { useFetcher, useNavigate, useSubmit } from 'react-router';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { signIn, getCurrentUser, signOut, signUp } from "@/api/auth";
+// import { signIn, getCurrentUser, signOut, signUp } from '@/api/auth.server';
 import {
   signinResolver,
   signupResolver,
   type SignInData,
-  type SignupData,
-} from "@/schemas/auth";
-import { user } from "@/constants/queryKeys";
+  type SignupData
+} from '@/schemas/auth';
 
 export const useSignIn = () => {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  let submit = useSubmit();
 
   const form = useForm<SignInData>({
-    resolver: signinResolver,
-  });
-
-  const mutation = useMutation({
-    mutationFn: () => signIn(form.getValues()),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: user.current() });
-      navigate("/");
-    },
-    onError: (error) => {
-      console.error(error);
-    },
+    resolver: signinResolver
   });
 
   const onSubmit = form.handleSubmit(() => {
-    mutation.mutate();
+    submit(form.getValues(), {
+      method: 'post',
+      action: '/',
+      encType: 'application/json'
+    });
   });
 
   return { form, onSubmit };
 };
 
 export const useSignup = () => {
-  const navigate = useNavigate();
+  const fetcher = useFetcher();
 
   const form = useForm<SignupData>({
-    resolver: signupResolver,
+    resolver: signupResolver
   });
 
-  const mutation = useMutation({
-    mutationFn: () => signUp(form.getValues()),
-    onSuccess: () => {
-      navigate("/sign-in");
-    },
-    onError: (error) => {
-      console.error(error);
-    },
-  });
+  const onSubmit = form.handleSubmit((data) => {
+    console.log('data', data);
 
-  const onSubmit = form.handleSubmit(() => {
-    mutation.mutate();
+    fetcher.submit(data, {
+      method: 'post',
+      encType: 'application/json'
+    });
   });
 
   return { form, onSubmit };
 };
 
 export const useCurrentUser = () => {
-  const query = useQuery({
-    queryKey: user.current(),
-    queryFn: getCurrentUser,
-    retry: false,
-    retryOnMount: false,
-  });
-
-  return query;
+  // const query = useQuery({
+  //   queryKey: user.current(),
+  //   queryFn: getCurrentUser,
+  //   retry: false,
+  //   retryOnMount: false,
+  // });
+  // return query;
 };
 
 export const useSignOutMutation = () => {
-  const navigate = useNavigate();
-
-  return useMutation({
-    mutationFn: signOut,
-    onSuccess: () => {
-      navigate("/");
-      window.location.reload();
-    },
-    onError: (error) => {
-      console.error(error);
-    },
-  });
+  // return useMutation({
+  //   mutationFn: signOut,
+  //   onSuccess: () => {
+  //     navigate('/');
+  //     window.location.reload();
+  //   },
+  //   onError: (error) => {
+  //     console.error(error);
+  //   }
+  // });
 };

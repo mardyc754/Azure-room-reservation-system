@@ -1,25 +1,26 @@
-import { Button } from "../Button";
-import { LabelWithInput } from "../LabelWithInput";
-import { useSignup } from "@/hooks/auth";
+import { Button } from '../Button';
+import { LabelWithInput } from '../LabelWithInput';
+import { useSignup } from '@/hooks/auth';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from "../ui/card";
+  CardTitle
+} from '../ui/card';
+import { Form } from 'react-router';
 
 export const SignupForm = () => {
   const {
     form: {
       register,
-      formState: { errors },
+      formState: { errors }
     },
-    onSubmit,
+    onSubmit
   } = useSignup();
 
   return (
-    <form className="flex justify-start" onSubmit={onSubmit}>
+    <Form className="flex justify-start" onSubmit={onSubmit}>
       <Card>
         <CardHeader>
           <CardTitle>
@@ -30,23 +31,23 @@ export const SignupForm = () => {
           <LabelWithInput
             label="Username"
             inputProps={{
-              ...register("username", { required: true }),
+              ...register('username', { required: true })
             }}
             errorLabel={errors.username?.message}
           />
           <LabelWithInput
             label="Email"
             inputProps={{
-              type: "email",
-              ...register("email", { required: true }),
+              type: 'email',
+              ...register('email', { required: true })
             }}
             errorLabel={errors.email?.message}
           />
           <LabelWithInput
             label="Password"
             inputProps={{
-              type: "password",
-              ...register("password", { required: true }),
+              type: 'password',
+              ...register('password', { required: true })
             }}
             errorLabel={errors.password?.message}
           />
@@ -56,13 +57,13 @@ export const SignupForm = () => {
             Sign up
           </Button>
           <p>
-            Already have account?{" "}
+            Already have account?{' '}
             <a href="sign-in" className="font-semibold">
               Sign in here
             </a>
           </p>
         </CardFooter>
       </Card>
-    </form>
+    </Form>
   );
 };

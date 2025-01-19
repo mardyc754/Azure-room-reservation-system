@@ -1,16 +1,30 @@
-import { LoginForm } from "@/components/forms/LoginForm";
-import { PageWrapper } from "@/components/PageWrapper";
+import { LoginForm } from '@/components/forms/LoginForm';
+import { PageWrapper } from '@/components/PageWrapper';
 
-import type { Route } from "./+types/Login";
+import type { Route } from './+types/Login';
+import { signIn } from '@/api/auth.server';
+import { useNavigate } from 'react-router';
+import type { SignInData } from '@/schemas/auth';
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "Login" }, { name: "description", content: "Login" }];
+  return [{ title: 'Login' }, { name: 'description', content: 'Login' }];
+}
+
+export async function action({ request }: Route.LoaderArgs) {
+  try {
+    const { email, password } = (await request.json()) as SignInData;
+
+    await signIn({ email, password }, request);
+  } catch (error) {
+    console.error(error);
+    return new Response('Error when logging in', { status: 500 });
+  }
 }
 
 export default function Login() {
   return (
     <PageWrapper>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center w-full">
         <LoginForm />
       </div>
     </PageWrapper>

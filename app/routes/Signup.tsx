@@ -1,10 +1,28 @@
-import { PageWrapper } from "@/components/PageWrapper";
-import { SignupForm } from "@/components/forms/SignupForm";
+import { PageWrapper } from '@/components/PageWrapper';
+import { SignupForm } from '@/components/forms/SignupForm';
 
-import type { Route } from "./+types/Signup";
+import { signUp } from '@/api/auth.server';
+import type { SignupData } from '@/schemas/auth';
+
+import type { Route } from './+types/Signup';
+import { redirect } from 'react-router';
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "Sign up" }, { name: "description", content: "Signup" }];
+  return [{ title: 'Sign up' }, { name: 'description', content: 'Signup' }];
+}
+
+export async function action({ request }: Route.LoaderArgs) {
+  try {
+    const data = (await request.json()) as SignupData;
+    await signUp(data);
+    redirect('/sign-in');
+  } catch (error) {
+    console.error(error);
+    // return new Response(`Error when signing up: ${error}`, { status: 500 });
+    return new Response(`Error when signing up. Details: ${error}`, {
+      status: 500
+    });
+  }
 }
 
 export default function Signup() {

@@ -1,22 +1,22 @@
-import { useSignIn } from "@/hooks/auth";
+import { useSignIn } from '@/hooks/auth';
 
-import { Button } from "../Button";
-import { LabelWithInput } from "../LabelWithInput";
+import { Button } from '../Button';
+import { LabelWithInput } from '../LabelWithInput';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from "../ui/card";
+  CardTitle
+} from '../ui/card';
 
 export const LoginForm = () => {
   const {
     form: {
       register,
-      formState: { errors },
+      formState: { errors }
     },
-    onSubmit,
+    onSubmit
   } = useSignIn();
 
   return (
@@ -31,16 +31,16 @@ export const LoginForm = () => {
           <LabelWithInput
             label="Email"
             inputProps={{
-              ...register("email", { required: true }),
-              type: "email",
+              ...register('email', { required: true }),
+              type: 'email'
             }}
             errorLabel={errors.email?.message}
           />
           <LabelWithInput
             label="Password"
             inputProps={{
-              ...register("password", { required: true }),
-              type: "password",
+              ...register('password', { required: true }),
+              type: 'password'
             }}
           />
         </CardContent>
@@ -49,7 +49,7 @@ export const LoginForm = () => {
             Sign in
           </Button>
           <p>
-            Don't have account?{" "}
+            Don't have account?{' '}
             <a href="sign-up" className="font-semibold">
               Sign up here
             </a>

@@ -1,19 +1,19 @@
-import type { Room } from "@/schemas/room";
+import type { Room } from '@/schemas/room';
 
-import { useConflictingReservations } from "@/hooks/useConflictingReservations";
-import { useCreateReservation } from "@/hooks/useCreateReservation";
-import { endOfDay, formatDateTime } from "@/utils/dateUtils";
+import { useConflictingReservations } from '@/hooks/useConflictingReservations';
+import { useCreateReservation } from '@/hooks/useCreateReservation';
+import { endOfDay, formatDateTime } from '@/utils/dateUtils';
 
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from "../ui/card";
-import { Button } from "../Button";
-import { LabelWithInput } from "../LabelWithInput";
-import { ConflictingReservationInfo } from "../ConflictingReservationInfo";
+  CardTitle
+} from '../ui/card';
+import { Button } from '../Button';
+import { LabelWithInput } from '../LabelWithInput';
+import { ConflictingReservationInfo } from '../ConflictingReservationInfo';
 
 type SelectDateFormProps = {
   selectedRoom: Room;
@@ -22,21 +22,21 @@ type SelectDateFormProps = {
 
 export const SelectDateForm = ({
   selectedRoom,
-  onReturn,
+  onReturn
 }: SelectDateFormProps) => {
   const {
     register,
-    onSubmit,
+    // onSubmit,
     watch,
-    formState: { errors },
+    formState: { errors }
   } = useCreateReservation({ selectedRoom });
 
   const { conflictingReservation, disableSubmitButton, isLoading } =
     useConflictingReservations({
-      startDate: watch("startDate"),
-      endDate: watch("endDate"),
+      startDate: watch('startDate'),
+      endDate: watch('endDate'),
       roomId: selectedRoom.id,
-      errors,
+      errors
     });
 
   if (isLoading) {
@@ -65,29 +65,30 @@ export const SelectDateForm = ({
           <h1 className="text-2xl">{`Create a reservation for the ${selectedRoom.name}`}</h1>
         </CardTitle>
       </CardHeader>
-      <form onSubmit={onSubmit}>
+      <form // onSubmit={onSubmit}
+      >
         <CardContent>
           <LabelWithInput
             label="Name"
             inputProps={{
-              ...register("name", { required: true }),
+              ...register('name', { required: true })
             }}
             errorLabel={errors.name?.message}
           />
           <LabelWithInput
             label="Start date"
             inputProps={{
-              ...register("startDate", { required: true }),
-              type: "datetime-local",
+              ...register('startDate', { required: true }),
+              type: 'datetime-local'
             }}
             errorLabel={errors.startDate?.message}
           />
           <LabelWithInput
             label="End date"
             inputProps={{
-              ...register("endDate", { required: true }),
-              type: "datetime-local",
-              max: formatDateTime(endOfDay(watch("startDate"))),
+              ...register('endDate', { required: true }),
+              type: 'datetime-local',
+              max: formatDateTime(endOfDay(watch('startDate')))
             }}
             errorLabel={errors.endDate?.message}
           />

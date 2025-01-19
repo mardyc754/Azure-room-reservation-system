@@ -1,20 +1,20 @@
-import { useCancelReservationData } from "@/hooks/useCancelReservation";
+import { useCancelReservationData } from '@/hooks/useCancelReservation';
 import {
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import type { FullReservationData } from "@/schemas/reservation";
+  CardTitle
+} from '@/components/ui/card';
+import type { FullReservationData } from '@/schemas/reservation';
 import {
   displayDatesAsTimeslot,
-  extractDateStringFromDate,
-} from "@/utils/dateUtils";
+  extractDateStringFromDate
+} from '@/utils/dateUtils';
 
-import { Separator } from "./ui/separator";
-import { Button } from "./Button";
+import { Separator } from './ui/separator';
+import { Button } from './Button';
 
 type ReservationCardProps = {
   data: FullReservationData;
@@ -23,9 +23,9 @@ type ReservationCardProps = {
 export const ReservationCard = ({ data }: ReservationCardProps) => {
   const { name, startDate, endDate, roomName, id } = data;
 
-  const { mutate: cancelReservation } = useCancelReservationData({
-    reservationId: id,
-  });
+  // const { mutate: cancelReservation } = useCancelReservationData({
+  //   reservationId: id,
+  // });
   return (
     <Card>
       <CardHeader>
@@ -41,9 +41,9 @@ export const ReservationCard = ({ data }: ReservationCardProps) => {
         <Button>
           <a href={`reservations/${id}`}>Change data</a>
         </Button>
-        <Button className="bg-black" onClick={() => cancelReservation()}>
+        {/* <Button className="bg-black" onClick={() => cancelReservation()}>
           Cancel reservation
-        </Button>
+        </Button> */}
       </CardFooter>
     </Card>
   );
