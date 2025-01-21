@@ -7,7 +7,6 @@ import {
   signOutSchema,
   userSchema
 } from '@/schemas/auth';
-import { customFetch } from './fetchConfig';
 
 import * as schema from '@/db/schema';
 
@@ -64,7 +63,7 @@ export const signIn = async (data: SignInData, request: Request) => {
     throw new Error('Incorrect username or password');
   }
 
-  await createUserSession({
+  return await createUserSession({
     request,
     userId: user.id,
     email: user.email,
@@ -75,8 +74,4 @@ export const signIn = async (data: SignInData, request: Request) => {
 
 export const getCurrentUser = async (request: Request) => {
   return await getUserCredentials(request);
-};
-
-export const signOut = async (request: Request) => {
-  await logout(request);
 };

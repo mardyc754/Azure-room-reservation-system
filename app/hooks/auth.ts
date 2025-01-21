@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useFetcher, useNavigate, useSubmit } from 'react-router';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useFetcher } from 'react-router';
 
 // import { signIn, getCurrentUser, signOut, signUp } from '@/api/auth.server';
 import {
@@ -11,16 +10,15 @@ import {
 } from '@/schemas/auth';
 
 export const useSignIn = () => {
-  let submit = useSubmit();
+  const fetcher = useFetcher();
 
   const form = useForm<SignInData>({
     resolver: signinResolver
   });
 
   const onSubmit = form.handleSubmit(() => {
-    submit(form.getValues(), {
+    fetcher.submit(form.getValues(), {
       method: 'post',
-      action: '/',
       encType: 'application/json'
     });
   });

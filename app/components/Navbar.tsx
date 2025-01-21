@@ -1,6 +1,8 @@
-import { useSignOutMutation } from '@/hooks/auth';
+import { useAuthProvider } from '@/providers/AuthProvider';
+import { Form } from 'react-router';
 
 export const Navbar = () => {
+  const { currentUser } = useAuthProvider();
   // const { data } = useCurrentUser();
   // const { mutate: signout } = useSignOutMutation();
 
@@ -12,17 +14,20 @@ export const Navbar = () => {
         </p>
       </div>
       <div className="flex items-center space-x-4">
-        {/* {data ? (
+        {currentUser ? (
           <>
             <a href="/create-reservation">Book a room</a>
             <a href="/reservations">Your reservations</a>
-            <button onClick={() => signout()}>Sign out</button>
+            {/* <button onClick={() => signout()}>Sign out</button> */}
+            <Form action="/logout" method="post">
+              <button type="submit">Sign out</button>
+            </Form>
           </>
-        ) : ( */}
-        <>
-          <a href="/sign-in">Sign in</a>
-        </>
-        {/* )} */}
+        ) : (
+          <>
+            <a href="/sign-in">Sign in</a>
+          </>
+        )}
       </div>
     </nav>
   );

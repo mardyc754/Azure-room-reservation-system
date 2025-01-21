@@ -1,3 +1,4 @@
+import { Form } from 'react-router';
 import { useSignIn } from '@/hooks/auth';
 
 import { Button } from '../Button';
@@ -20,7 +21,7 @@ export const LoginForm = () => {
   } = useSignIn();
 
   return (
-    <form onSubmit={onSubmit} className="flex justify-start">
+    <Form onSubmit={onSubmit} className="flex justify-start">
       <Card>
         <CardHeader>
           <CardTitle>
@@ -56,6 +57,6 @@ export const LoginForm = () => {
           </p>
         </CardFooter>
       </Card>
-    </form>
+    </Form>
   );
 };
