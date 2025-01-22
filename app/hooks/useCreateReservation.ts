@@ -1,9 +1,6 @@
-import { useNavigate } from 'react-router';
+import { redirect } from 'react-router';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { createReservation } from '@/api/reservation';
-import { reservation } from '@/constants/queryKeys';
 import {
   createReservationResolver,
   type CreateReservationData
@@ -19,9 +16,9 @@ type UseCreateReservationOptions = {
 export const useCreateReservation = ({
   selectedRoom
 }: UseCreateReservationOptions) => {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // const { data: currentUserData } = useCurrentUser();
   const methods = useForm<CreateReservationData>({
     resolver: createReservationResolver
@@ -47,9 +44,9 @@ export const useCreateReservation = ({
   //   },
   // });
 
-  // const onSubmit = handleSubmit(() => {
-  //   mutation.mutate();
-  // });
+  const onSubmit = handleSubmit(() => {
+    return redirect('/reservations');
+  });
 
   return {
     ...methods

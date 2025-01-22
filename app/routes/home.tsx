@@ -4,7 +4,7 @@ import { PageWrapper } from '@/components/PageWrapper';
 
 import type { Route } from './+types/Home';
 import { database } from '@/db/context';
-import { getUserCredentials } from '@/services/session.server';
+import { getUserCredentials } from '@/server/session.server';
 
 export function meta({}: Route.MetaArgs) {
   return [

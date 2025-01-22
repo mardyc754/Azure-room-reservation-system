@@ -11,7 +11,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import type { Route } from './+types/root';
 import stylesheet from './app.css?url';
-import { getCurrentUser } from './api/auth.server';
+import { getCurrentUser } from './server/auth.server';
 import { AuthProvider } from './providers/AuthProvider';
 
 const queryClient = new QueryClient();

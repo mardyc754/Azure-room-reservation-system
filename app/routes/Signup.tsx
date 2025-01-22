@@ -1,7 +1,7 @@
 import { PageWrapper } from '@/components/PageWrapper';
 import { SignupForm } from '@/components/forms/SignupForm';
 
-import { signUp } from '@/api/auth.server';
+import { signUp } from '@/server/auth.server';
 import type { SignupData } from '@/schemas/auth';
 
 import type { Route } from './+types/Signup';

@@ -1,22 +1,20 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { cancelReservation } from "@/api/reservation";
-import { reservation } from "@/constants/queryKeys";
-import type { Reservation } from "@/schemas/reservation";
+import { cancelReservation } from '@/server/reservation.server';
+import { reservation } from '@/constants/queryKeys';
+import type { Reservation } from '@/schemas/reservation';
 
-import { useCurrentUser } from "./auth";
+import { useCurrentUser } from './auth';
 
 type UseChangeReservationDataOptions = {
-  reservationId: Reservation["id"];
+  reservationId: Reservation['id'];
 };
 
 export const useCancelReservationData = ({
-  reservationId,
+  reservationId
 }: UseChangeReservationDataOptions) => {
   // const queryClient = useQueryClient();
-
   // const { data: currentUserData } = useCurrentUser();
-
   // const mutation = useMutation({
   //   mutationFn: () => cancelReservation(reservationId),
   //   onSuccess: () => {
@@ -28,6 +26,5 @@ export const useCancelReservationData = ({
   //     console.error(error);
   //   },
   // });
-
   // return mutation;
 };

@@ -1,6 +1,10 @@
 import bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 
+import * as schema from '@/db/schema';
+
+import { database } from '@/db/context';
+
 import {
   type SignInData,
   type SignupData,
@@ -8,14 +12,11 @@ import {
   userSchema
 } from '@/schemas/auth';
 
-import * as schema from '@/db/schema';
-
-import { database } from '@/db/context';
 import {
   createUserSession,
   getUserCredentials,
   logout
-} from '@/services/session.server';
+} from '@/server/session.server';
 
 export const signUp = async (data: SignupData) => {
   const { username, email, password } = data;

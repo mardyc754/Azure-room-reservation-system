@@ -2,7 +2,7 @@ import { LoginForm } from '@/components/forms/LoginForm';
 import { PageWrapper } from '@/components/PageWrapper';
 
 import type { Route } from './+types/Login';
-import { getCurrentUser, signIn } from '@/api/auth.server';
+import { getCurrentUser, signIn } from '@/server/auth.server';
 import { redirect } from 'react-router';
 import type { SignInData } from '@/schemas/auth';
 

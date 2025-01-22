@@ -1,28 +1,26 @@
-import { useNavigate } from "react-router";
-import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from 'react-router';
+import { useForm } from 'react-hook-form';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { changeReservationData } from "@/api/reservation";
-import { reservation } from "@/constants/queryKeys";
+import { changeReservationData } from '@/server/reservation.server';
+import { reservation } from '@/constants/queryKeys';
 import {
   type ChangeReservationData,
-  
   type FullReservationData,
-  changeReservationDataResolver,
-} from "@/schemas/reservation";
+  changeReservationDataResolver
+} from '@/schemas/reservation';
 
-import { useCurrentUser } from "./auth";
-import { formatDateTime } from "@/utils/dateUtils";
+import { useCurrentUser } from './auth';
+import { formatDateTime } from '@/utils/dateUtils';
 
 type UseChangeReservationDataOptions = {
   reservationData: FullReservationData;
 };
 
 export const useChangeReservationData = ({
-  reservationData,
+  reservationData
 }: UseChangeReservationDataOptions) => {
   // const queryClient = useQueryClient();
-
   // const {
   //   id: reservationId,
   //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -31,10 +29,8 @@ export const useChangeReservationData = ({
   //   roomName,
   //   ...initialFormData
   // } = reservationData;
-
   // const navigate = useNavigate();
   // const { data: currentUserData } = useCurrentUser();
-
   // const methods = useForm<ChangeReservationData>({
   //   resolver: changeReservationDataResolver,
   //   defaultValues: {
@@ -43,9 +39,7 @@ export const useChangeReservationData = ({
   //     endDate: formatDateTime(new Date(initialFormData.endDate)),
   //   },
   // });
-
   // const { handleSubmit, getValues } = methods;
-
   // const mutation = useMutation({
   //   mutationFn: () =>
   //     changeReservationData(reservationId, {
@@ -61,11 +55,9 @@ export const useChangeReservationData = ({
   //     console.error(error);
   //   },
   // });
-
   // const onSubmit = handleSubmit(() => {
   //   mutation.mutate();
   // });
-
   // return {
   //   ...methods,
   //   onSubmit,
