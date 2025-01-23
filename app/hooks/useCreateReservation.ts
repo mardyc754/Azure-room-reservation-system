@@ -1,4 +1,4 @@
-import { redirect } from 'react-router';
+import { redirect, useFetcher } from 'react-router';
 import { useForm } from 'react-hook-form';
 
 import {
@@ -8,6 +8,7 @@ import {
 import type { Room } from '@/schemas/room';
 
 import { useCurrentUser } from './auth';
+import { useAuthProvider } from '@/providers/AuthProvider';
 
 type UseCreateReservationOptions = {
   selectedRoom: Room;
@@ -16,40 +17,32 @@ type UseCreateReservationOptions = {
 export const useCreateReservation = ({
   selectedRoom
 }: UseCreateReservationOptions) => {
-  // const queryClient = useQueryClient();
+  const { currentUser } = useAuthProvider();
 
-  // const navigate = useNavigate();
-  // const { data: currentUserData } = useCurrentUser();
+  if (!currentUser) {
+    throw new Error('currentUser is not defined');
+  }
+
+  const fetcher = useFetcher();
+
   const methods = useForm<CreateReservationData>({
     resolver: createReservationResolver
   });
 
   const { handleSubmit, getValues } = methods;
 
-  // const mutation = useMutation({
-  //   mutationFn: () =>
-  //     createReservation({
-  //       ...getValues(),
-  //       roomId: selectedRoom.id,
-  //       userId: currentUserData!.id!,
-  //     }),
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({
-  //       queryKey: reservation.user(currentUserData!.id!),
-  //     });
-  //     navigate("/reservations");
-  //   },
-  //   onError: (error) => {
-  //     console.error(error);
-  //   },
-  // });
-
   const onSubmit = handleSubmit(() => {
-    return redirect('/reservations');
+    fetcher.submit(
+      { ...getValues(), roomId: selectedRoom.id, userId: currentUser.id },
+      {
+        method: 'post',
+        encType: 'application/json'
+      }
+    );
   });
 
   return {
-    ...methods
-    // onSubmit,
+    ...methods,
+    onSubmit
   };
 };

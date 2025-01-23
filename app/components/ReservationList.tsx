@@ -1,21 +1,20 @@
-import { useReservations } from "@/hooks/useReservations";
-import type { User } from "@/schemas/auth";
-import { ReservationCard } from "./ReservationCard";
+import type { User } from '@/schemas/auth';
+import { ReservationCard } from './ReservationCard';
+import type { Reservation } from '@/db/schema';
+import type { FullReservationData } from '@/schemas/reservation';
 
 type ReservationListProps = {
-  userId: User["id"];
+  data: FullReservationData[];
 };
 
-export const ReservationList = ({ userId }: ReservationListProps) => {
-  const { data: reservations, isLoading } = useReservations(userId);
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+export const ReservationList = ({ data }: ReservationListProps) => {
+  // if (isLoading) {
+  //   return <p>Loading...</p>;
+  // }
 
   return (
     <div className="flex flex-col space-y-4">
-      {reservations?.map((reservation) => (
+      {data?.map((reservation) => (
         <ReservationCard key={reservation.id} data={reservation} />
       ))}
     </div>

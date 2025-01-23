@@ -34,8 +34,10 @@ export const getReservationsByUserId = async (userId: number) => {
     })
     .from(reservations)
     .where(eq(reservations.userId, userId))
-    .fullJoin(users, eq(reservations.userId, users.id))
-    .fullJoin(rooms, eq(reservations.roomId, rooms.id));
+    // .leftJoin(users, eq(reservations.userId, users.id))
+    // .leftJoin(rooms, eq(reservations.roomId, rooms.id));
+    .leftJoin(users, eq(reservations.userId, users.id))
+    .leftJoin(rooms, eq(reservations.roomId, rooms.id));
 };
 
 export const getReservationById = async (reservationId: Reservation['id']) => {
@@ -55,8 +57,8 @@ export const getReservationById = async (reservationId: Reservation['id']) => {
       })
       .from(reservations)
       .where(eq(reservations.id, reservationId))
-      .fullJoin(users, eq(reservations.userId, users.id))
-      .fullJoin(rooms, eq(reservations.roomId, rooms.id))
+      .leftJoin(users, eq(reservations.userId, users.id))
+      .leftJoin(rooms, eq(reservations.roomId, rooms.id))
   )[0];
 };
 
@@ -73,7 +75,7 @@ export const getReservationsByRoomId = async (roomId: Room['id']) => {
     })
     .from(reservations)
     .where(eq(reservations.roomId, roomId))
-    .fullJoin(rooms, eq(reservations.roomId, rooms.id));
+    .leftJoin(rooms, eq(reservations.roomId, rooms.id));
 };
 
 export const createReservation = async (

@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { useRooms } from "@/hooks/useRooms";
-import type { Room } from "@/schemas/room";
+import type { Room } from '@/schemas/room';
 
-import { Button } from "../Button";
-import { SelectDateForm } from "./SelectDateForm";
+import { Button } from '../Button';
+import { CreateReservationForm } from './CreateReservationForm';
 
-export const ReservationForm = () => {
-  const { data, isLoading } = useRooms();
+type ReservationFormProps = {
+  data: Room[];
+};
+
+export const ReservationForm = ({ data }: ReservationFormProps) => {
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
 
   return (
@@ -16,7 +18,7 @@ export const ReservationForm = () => {
         <>
           <h1 className="text-2xl">Select a room:</h1>
           <div className="grid grid-cols-3 gap-4">
-            {isLoading && <p>Loading...</p>}
+            {/* {isLoading && <p>Loading...</p>} */}
             {data?.map((room) => (
               <Button key={room.id} onClick={() => setSelectedRoom(room)}>
                 {room.name}
@@ -26,7 +28,7 @@ export const ReservationForm = () => {
         </>
       ) : (
         <div className="flex flex-col space-y-4 items-center justify-center">
-          <SelectDateForm
+          <CreateReservationForm
             selectedRoom={selectedRoom}
             onReturn={() => setSelectedRoom(null)}
           />

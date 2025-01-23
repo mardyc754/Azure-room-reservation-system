@@ -1,13 +1,15 @@
-import { findConflictingReservation } from "@/utils/reservationUtils";
-import { useReservationsByRoomId } from "./useReservations";
-import type { Room } from "@/schemas/room";
-import type { FieldErrors, FieldValues } from "react-hook-form";
-import { useMemo } from "react";
+import { findConflictingReservation } from '@/utils/reservationUtils';
+import { useReservationsByRoomId } from './useReservations';
+import type { Room } from '@/schemas/room';
+import type { FieldErrors, FieldValues } from 'react-hook-form';
+import { useMemo } from 'react';
+import type { FullReservationData } from '@/schemas/reservation';
 
 type UseConflictingReservationsOptions<T extends FieldValues> = {
   startDate: string;
   endDate: string;
-  roomId: Room["id"];
+  roomId: Room['id'];
+  existingReservations: FullReservationData[];
   errors: FieldErrors<T>;
 };
 
@@ -15,26 +17,21 @@ export const useConflictingReservations = <T extends FieldValues>({
   startDate,
   endDate,
   roomId,
-  errors,
+  existingReservations,
+  errors
 }: UseConflictingReservationsOptions<T>) => {
-  const { data: exisingReservations, isLoading } =
-    useReservationsByRoomId(roomId);
-
   const conflictingReservation = findConflictingReservation(
     startDate,
     endDate,
-    exisingReservations ?? []
+    existingReservations ?? []
   );
 
   const disableSubmitButton = useMemo(() => {
-    return (
-      isLoading || !!conflictingReservation || Object.keys(errors).length > 0
-    );
-  }, [isLoading, conflictingReservation, errors]);
+    return !!conflictingReservation || Object.keys(errors).length > 0;
+  }, [conflictingReservation, errors]);
 
   return {
     conflictingReservation,
-    isLoading,
-    disableSubmitButton,
+    disableSubmitButton
   };
 };

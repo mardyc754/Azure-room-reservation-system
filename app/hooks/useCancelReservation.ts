@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { cancelReservation } from '@/server/reservation.server';
 import { reservation } from '@/constants/queryKeys';
 import type { Reservation } from '@/schemas/reservation';
 

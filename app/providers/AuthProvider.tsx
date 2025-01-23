@@ -1,4 +1,4 @@
-import { createContext, useContext, type ContextType } from 'react';
+import { createContext, use, type ContextType } from 'react';
 
 import type { User } from '@/db/schema';
 
@@ -19,7 +19,7 @@ export const AuthProvider = ({
 };
 
 export const useAuthProvider = () => {
-  const context = useContext(AuthContext);
+  const context = use(AuthContext);
 
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');

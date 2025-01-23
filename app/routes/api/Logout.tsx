@@ -1,7 +1,7 @@
 import { redirect, type MetaFunction } from 'react-router';
 import type { Route } from './+types/Logout';
 
-import { logout } from '../server/session.server';
+import { logout } from '@/server/session.server';
 
 /**
  * Action function for the logout route.

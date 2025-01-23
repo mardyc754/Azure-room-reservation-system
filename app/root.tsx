@@ -13,8 +13,7 @@ import type { Route } from './+types/root';
 import stylesheet from './app.css?url';
 import { getCurrentUser } from './server/auth.server';
 import { AuthProvider } from './providers/AuthProvider';
-
-const queryClient = new QueryClient();
+import { useState } from 'react';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -55,6 +54,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App({ loaderData }: Route.ComponentProps) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            // With SSR, we usually want to set some default staleTime
+            // above 0 to avoid refetching immediately on the client
+            staleTime: 60 * 1000
+          }
+        }
+      })
+  );
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider currentUser={loaderData.currentUser}>

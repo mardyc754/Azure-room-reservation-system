@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useFetcher } from 'react-router';
 
-// import { signIn, getCurrentUser, signOut, signUp } from '@/api/auth.server';
 import {
   signinResolver,
   signupResolver,
@@ -34,8 +33,6 @@ export const useSignup = () => {
   });
 
   const onSubmit = form.handleSubmit((data) => {
-    console.log('data', data);
-
     fetcher.submit(data, {
       method: 'post',
       encType: 'application/json'

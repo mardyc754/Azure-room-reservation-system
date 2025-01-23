@@ -5,18 +5,9 @@ import * as schema from '@/db/schema';
 
 import { database } from '@/db/context';
 
-import {
-  type SignInData,
-  type SignupData,
-  signOutSchema,
-  userSchema
-} from '@/schemas/auth';
+import { type SignInData, type SignupData } from '@/schemas/auth';
 
-import {
-  createUserSession,
-  getUserCredentials,
-  logout
-} from '@/server/session.server';
+import { createUserSession, getUserCredentials } from '@/server/session.server';
 
 export const signUp = async (data: SignupData) => {
   const { username, email, password } = data;
