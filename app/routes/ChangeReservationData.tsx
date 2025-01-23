@@ -7,8 +7,8 @@ import {
   getReservationById,
   getReservationsByRoomId
 } from '@/server/reservation.server';
-import type { ChangeReservationData, Reservation } from '@/schemas/reservation';
-import type { User } from '@/db/schema';
+import type { ChangeReservationData } from '@/schemas/reservation';
+import type { Reservation, User } from '@/db/schema';
 import { redirect } from 'react-router';
 
 export function meta({}: Route.MetaArgs) {

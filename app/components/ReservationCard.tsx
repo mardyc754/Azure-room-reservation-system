@@ -1,4 +1,3 @@
-import { useCancelReservationData } from '@/hooks/useCancelReservation';
 import {
   Card,
   CardContent,
@@ -15,6 +14,7 @@ import {
 
 import { Separator } from './ui/separator';
 import { Button } from './Button';
+import { Form, useFetcher } from 'react-router';
 
 type ReservationCardProps = {
   data: FullReservationData;
@@ -23,9 +23,8 @@ type ReservationCardProps = {
 export const ReservationCard = ({ data }: ReservationCardProps) => {
   const { name, startDate, endDate, roomName, id } = data;
 
-  // const { mutate: cancelReservation } = useCancelReservationData({
-  //   reservationId: id,
-  // });
+  const fetcher = useFetcher();
+
   return (
     <Card>
       <CardHeader>
@@ -37,13 +36,23 @@ export const ReservationCard = ({ data }: ReservationCardProps) => {
         <p className="font-semibold">{extractDateStringFromDate(startDate)}</p>
         <p>{displayDatesAsTimeslot(startDate, endDate)}</p>
       </CardContent>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex justify-between items-center">
         <Button>
-          <a href={`reservations/${id}`}>Change data</a>
+          <a href={`/reservations/${id}`}>Change data</a>
         </Button>
-        {/* <Button className="bg-black" onClick={() => cancelReservation()}>
-          Cancel reservation
-        </Button> */}
+        <Form
+          method="delete"
+          action={`/reservations/${id}/cancel`}
+          onSubmit={() =>
+            fetcher.submit({
+              method: 'delete'
+            })
+          }
+        >
+          <Button type="submit" className="bg-black">
+            Cancel
+          </Button>
+        </Form>
       </CardFooter>
     </Card>
   );

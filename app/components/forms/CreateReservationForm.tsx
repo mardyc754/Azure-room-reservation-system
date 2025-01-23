@@ -1,8 +1,8 @@
-import type { Room } from '@/schemas/room';
+import { Form } from 'react-router';
+import type { Reservation, Room } from '@/db/schema';
 
 import { useConflictingReservations } from '@/hooks/useConflictingReservations';
 import { useCreateReservation } from '@/hooks/useCreateReservation';
-import { endOfDay, formatDateTime } from '@/utils/dateUtils';
 
 import {
   Card,
@@ -14,12 +14,10 @@ import {
 import { Button } from '../Button';
 import { LabelWithInput } from '../LabelWithInput';
 import { ConflictingReservationInfo } from '../ConflictingReservationInfo';
-import { Form } from 'react-router';
-import type { FullReservationData } from '@/schemas/reservation';
 
 type SelectDateFormProps = {
   selectedRoom: Room;
-  reservations: FullReservationData[];
+  reservations: Reservation[];
   onReturn: () => void;
 };
 
@@ -40,7 +38,6 @@ export const CreateReservationForm = ({
       startDate: watch('startDate'),
       existingReservations: reservations,
       endDate: watch('endDate'),
-      roomId: selectedRoom.id,
       errors
     });
 
@@ -73,8 +70,7 @@ export const CreateReservationForm = ({
               label="End date"
               inputProps={{
                 ...register('endDate', { required: true }),
-                type: 'datetime-local',
-                max: formatDateTime(endOfDay(watch('startDate')))
+                type: 'datetime-local'
               }}
               errorLabel={errors.endDate?.message}
             />

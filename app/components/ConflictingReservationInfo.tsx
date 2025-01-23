@@ -1,16 +1,16 @@
-import type { Reservation } from "@/schemas/reservation";
-import { displayDatesAsFullTimeslot } from "@/utils/dateUtils";
+import type { Reservation } from '@/db/schema';
+import { displayDatesAsFullTimeslot } from '@/utils/dateUtils';
 
 type ConflictingReservationInfoProps = {
-  data: Omit<Reservation, "userId">;
+  data: Reservation;
 };
 
 export const ConflictingReservationInfo = ({
-  data,
+  data
 }: ConflictingReservationInfoProps) => {
   return (
     <p className="text-red-500">
-      There is a conflicting reservation from{" "}
+      There is a conflicting reservation from{' '}
       {displayDatesAsFullTimeslot(data.startDate, data.endDate)}
     </p>
   );

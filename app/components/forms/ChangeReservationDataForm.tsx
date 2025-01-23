@@ -1,3 +1,4 @@
+import { Form } from 'react-router';
 import {
   advanceByMinutes,
   endOfDay,
@@ -10,6 +11,7 @@ import type { FullReservationData } from '@/schemas/reservation';
 import { Button } from '../Button';
 import { LabelWithInput } from '../LabelWithInput';
 import { useChangeReservationData } from '@/hooks/useChangeReservationData';
+import { useConflictingReservations } from '@/hooks/useConflictingReservations';
 
 import {
   Card,
@@ -18,19 +20,18 @@ import {
   CardHeader,
   CardTitle
 } from '../ui/card';
-import { useConflictingReservations } from '@/hooks/useConflictingReservations';
+
 import { ConflictingReservationInfo } from '../ConflictingReservationInfo';
-import { Form, useFetcher } from 'react-router';
-import { use } from 'react';
+import type { Reservation } from '@/db/schema';
 
 type ChangeReservationDataFormProps = {
   reservation: FullReservationData;
-  existingReservations: FullReservationData[];
+  existingReservations: Reservation[];
 };
 
 type ChangeReservationDataFormContentProps = {
   data: FullReservationData;
-  existingReservations: FullReservationData[];
+  existingReservations: Reservation[];
 };
 
 const ChangeReservationDataFormContent = ({
@@ -47,12 +48,9 @@ const ChangeReservationDataFormContent = ({
     useConflictingReservations({
       startDate: watch('startDate'),
       endDate: watch('endDate'),
-      roomId: data.roomId,
       existingReservations,
       errors
     });
-
-  const fetcher = useFetcher();
 
   return (
     <Card>
@@ -104,10 +102,6 @@ const ChangeReservationDataFormContent = ({
           {conflictingReservation && (
             <ConflictingReservationInfo data={conflictingReservation} />
           )}
-
-          <Button type="submit" className="w-full bg-black">
-            Cancel
-          </Button>
         </CardFooter>
       </Form>
     </Card>

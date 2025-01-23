@@ -1,24 +1,21 @@
 import { eq } from 'drizzle-orm';
 
 import { database } from '@/db/context';
-import { reservations, rooms, users } from '@/db/schema';
+import {
+  reservations,
+  rooms,
+  users,
+  type Reservation,
+  type Room
+} from '@/db/schema';
 
 import {
   type ChangeReservationData,
-  type CreateReservationData,
-  type Reservation
+  type CreateReservationData
 } from '@/schemas/reservation';
-import type { Room } from '@/schemas/room';
 import type { User } from '@/schemas/auth';
 
 export const getReservationsByUserId = async (userId: number) => {
-  // return await customFetch(
-  //   `reservations/user/${userId}`,
-  //   fullReservationSchema.array(),
-  //   {
-  //     credentials: "include",
-  //   }
-  // );
   const db = database();
 
   return await db
@@ -67,6 +64,7 @@ export const getReservationsByRoomId = async (roomId: Room['id']) => {
 
   return await db
     .select({
+      userId: reservations.userId,
       id: reservations.id,
       name: reservations.name,
       roomId: reservations.roomId,

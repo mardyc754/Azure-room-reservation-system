@@ -1,10 +1,11 @@
 import { PageWrapper } from '@/components/PageWrapper';
 import { ReservationList } from '@/components/ReservationList';
 
-import type { Route } from './+types/Reservations';
 import { useAuthProvider } from '@/providers/AuthProvider';
 import { getReservationsByUserId } from '@/server/reservation.server';
 import { getCurrentUser } from '@/server/auth.server';
+
+import type { Route } from './+types/Reservations';
 
 export function meta({}: Route.MetaArgs) {
   return [

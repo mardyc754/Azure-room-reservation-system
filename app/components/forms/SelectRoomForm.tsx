@@ -1,4 +1,4 @@
-import type { Room } from '@/schemas/room';
+import type { Room } from '@/db/schema';
 
 import { Button } from '../Button';
 

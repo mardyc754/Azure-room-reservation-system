@@ -1,13 +1,12 @@
-import { redirect, useFetcher } from 'react-router';
+import { useFetcher } from 'react-router';
 import { useForm } from 'react-hook-form';
 
 import {
   createReservationResolver,
   type CreateReservationData
 } from '@/schemas/reservation';
-import type { Room } from '@/schemas/room';
+import type { Room } from '@/db/schema';
 
-import { useCurrentUser } from './auth';
 import { useAuthProvider } from '@/providers/AuthProvider';
 
 type UseCreateReservationOptions = {

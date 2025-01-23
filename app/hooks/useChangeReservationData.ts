@@ -1,15 +1,12 @@
-import { useFetcher, useNavigate } from 'react-router';
+import { useFetcher } from 'react-router';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-// import { changeReservationData } from '@/server/reservation.server';
 import {
   type ChangeReservationData,
   type FullReservationData,
   changeReservationDataResolver
 } from '@/schemas/reservation';
 
-import { useCurrentUser } from './auth';
 import { formatDateTime } from '@/utils/dateUtils';
 import { useAuthProvider } from '@/providers/AuthProvider';
 
@@ -45,21 +42,7 @@ export const useChangeReservationData = ({
     }
   });
   const { handleSubmit, getValues } = methods;
-  // const mutation = useMutation({
-  //   mutationFn: () =>
-  //     changeReservationData(reservationId, {
-  //       ...getValues(),
-  //     }),
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({
-  //       queryKey: reservation.user(currentUserData!.id!),
-  //     });
-  //     navigate("/reservations");
-  //   },
-  //   onError: (error) => {
-  //     console.error(error);
-  //   },
-  // });
+
   const onSubmit = handleSubmit(() => {
     fetcher.submit(
       {

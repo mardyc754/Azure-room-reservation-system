@@ -36,7 +36,6 @@ const getUserSession = (request: Request) => {
  * @returns Redirect response after logout.
  */
 export async function logout(request: Request) {
-  console.log('logout');
   const session = getUserSession(request);
   return redirect('/', {
     headers: {
