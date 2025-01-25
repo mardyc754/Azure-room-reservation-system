@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import Home from '../Home';
+import Home from '@/routes/Home';
 
 import { renderComponent } from './testingHelpers';
 

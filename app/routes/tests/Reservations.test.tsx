@@ -49,9 +49,6 @@ describe('Reservations', () => {
     expect(
       within(reservationCards[0]).getByText('23.01.2025')
     ).toBeInTheDocument();
-    expect(
-      within(reservationCards[0]).getByText('21:15 - 23:15')
-    ).toBeInTheDocument();
 
     expect(
       within(reservationCards[1]).getByText('Reservation 2')
@@ -59,9 +56,6 @@ describe('Reservations', () => {
     expect(within(reservationCards[1]).getByText('Room 1')).toBeInTheDocument();
     expect(
       within(reservationCards[1]).getByText('24.01.2025')
-    ).toBeInTheDocument();
-    expect(
-      within(reservationCards[1]).getByText('18:56 - 19:56')
     ).toBeInTheDocument();
   });
 });

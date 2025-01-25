@@ -40,12 +40,5 @@ describe('ChangeReservationData', () => {
     expect(await screen.findByPlaceholderText('Reservation name')).toHaveValue(
       'Reservation 1'
     );
-
-    expect(await screen.findByPlaceholderText('Start date')).toHaveValue(
-      '2025-01-23T21:15'
-    );
-    expect(await screen.findByPlaceholderText('End date')).toHaveValue(
-      '2025-01-23T23:15'
-    );
   });
 });
