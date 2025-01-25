@@ -41,26 +41,3 @@ export const useSignup = () => {
 
   return { form, onSubmit };
 };
-
-export const useCurrentUser = () => {
-  // const query = useQuery({
-  //   queryKey: user.current(),
-  //   queryFn: getCurrentUser,
-  //   retry: false,
-  //   retryOnMount: false,
-  // });
-  // return query;
-};
-
-export const useSignOutMutation = () => {
-  // return useMutation({
-  //   mutationFn: signOut,
-  //   onSuccess: () => {
-  //     navigate('/');
-  //     window.location.reload();
-  //   },
-  //   onError: (error) => {
-  //     console.error(error);
-  //   }
-  // });
-};

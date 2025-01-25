@@ -1,17 +1,17 @@
-import { Form } from 'react-router';
+import { Form, useLoaderData } from 'react-router';
+import type { Reservation } from '@/db/schema';
 import {
   advanceByMinutes,
   endOfDay,
   formatDateTime,
   nextDay
 } from '@/utils/dateUtils';
-
 import type { FullReservationData } from '@/schemas/reservation';
+import { useConflictingReservations } from '@/hooks/useConflictingReservations';
+import { useChangeReservationData } from '@/hooks/useChangeReservationData';
 
 import { Button } from '../Button';
 import { LabelWithInput } from '../LabelWithInput';
-import { useChangeReservationData } from '@/hooks/useChangeReservationData';
-import { useConflictingReservations } from '@/hooks/useConflictingReservations';
 
 import {
   Card,
@@ -22,7 +22,6 @@ import {
 } from '../ui/card';
 
 import { ConflictingReservationInfo } from '../ConflictingReservationInfo';
-import type { Reservation } from '@/db/schema';
 
 type ChangeReservationDataFormProps = {
   reservation: FullReservationData;
@@ -65,7 +64,8 @@ const ChangeReservationDataFormContent = ({
             label="Name"
             inputProps={{
               ...register('name', { required: true }),
-              defaultValue: data.name
+              defaultValue: data.name,
+              placeholder: 'Reservation name'
             }}
             errorLabel={errors.name?.message}
           />
@@ -74,7 +74,8 @@ const ChangeReservationDataFormContent = ({
             inputProps={{
               ...register('startDate', { required: true }),
               type: 'datetime-local',
-              min: formatDateTime(nextDay(new Date()))
+              min: formatDateTime(nextDay(new Date())),
+              placeholder: 'Start date'
             }}
             errorLabel={errors.startDate?.message}
           />
@@ -86,7 +87,8 @@ const ChangeReservationDataFormContent = ({
               min: formatDateTime(
                 advanceByMinutes(new Date(watch('startDate')), 30)
               ),
-              max: formatDateTime(endOfDay(new Date(watch('startDate'))))
+              max: formatDateTime(endOfDay(new Date(watch('startDate')))),
+              placeholder: 'End date'
             }}
             errorLabel={errors.endDate?.message}
           />
@@ -108,10 +110,10 @@ const ChangeReservationDataFormContent = ({
   );
 };
 
-export const ChangeReservationDataForm = ({
-  reservation,
-  existingReservations
-}: ChangeReservationDataFormProps) => {
+export const ChangeReservationDataForm = () => {
+  const { reservation, existingReservations } =
+    useLoaderData<ChangeReservationDataFormProps>();
+
   return (
     reservation && (
       <ChangeReservationDataFormContent

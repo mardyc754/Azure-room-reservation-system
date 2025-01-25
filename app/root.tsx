@@ -11,7 +11,6 @@ import type { Route } from './+types/root';
 import stylesheet from './app.css?url';
 import { getCurrentUser } from './server/auth.server';
 import { AuthProvider } from './providers/AuthProvider';
-import { useState } from 'react';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },

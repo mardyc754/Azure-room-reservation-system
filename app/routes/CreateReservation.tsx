@@ -1,18 +1,16 @@
-import { PageWrapper } from '@/components/PageWrapper';
-
-import type { Route } from './+types/CreateReservation';
-
-import type { CreateReservationData } from '@/schemas/reservation';
-// import { createReservation } from '@/server/reservation.server';
-import { redirect, useNavigate } from 'react-router';
-import type { Room, User } from '@/db/schema';
-import { CreateReservationForm } from '@/components/forms/CreateReservationForm';
-
+import { data, redirect } from 'react-router';
 import {
   createReservation,
   getReservationsByRoomId
 } from '@/server/reservation.server';
 import { getRoomById } from '@/server/room.server';
+import type { Room, User } from '@/db/schema';
+
+import type { CreateReservationData } from '@/schemas/reservation';
+import { PageWrapper } from '@/components/PageWrapper';
+import { CreateReservationForm } from '@/components/forms/CreateReservationForm';
+
+import type { Route } from './+types/CreateReservation';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -46,25 +44,16 @@ export async function loader({ params }: Route.LoaderArgs) {
   const room = await getRoomById(roomId);
 
   if (!reservations) {
-    return new Response('Room not found', { status: 404 });
+    return data('Room not found', { status: 404 });
   }
 
   return { reservations, room };
 }
 
-export default function CreateReservation({
-  loaderData,
-  params
-}: Route.ComponentProps) {
-  const navigate = useNavigate();
-
+export default function CreateReservation() {
   return (
     <PageWrapper>
-      <CreateReservationForm
-        selectedRoom={loaderData.room}
-        reservations={loaderData.reservations}
-        onReturn={() => navigate('/create-reservation')}
-      />
+      <CreateReservationForm />
     </PageWrapper>
   );
 }

@@ -1,5 +1,4 @@
-import { Form } from 'react-router';
-import type { Reservation, Room } from '@/db/schema';
+import { Form, useLoaderData } from 'react-router';
 
 import { useConflictingReservations } from '@/hooks/useConflictingReservations';
 import { useCreateReservation } from '@/hooks/useCreateReservation';
@@ -14,18 +13,14 @@ import {
 import { Button } from '../Button';
 import { LabelWithInput } from '../LabelWithInput';
 import { ConflictingReservationInfo } from '../ConflictingReservationInfo';
+import type { Reservation, Room } from '@/db/schema';
+import { placeholder } from 'drizzle-orm';
 
-type SelectDateFormProps = {
-  selectedRoom: Room;
-  reservations: Reservation[];
-  onReturn: () => void;
-};
-
-export const CreateReservationForm = ({
-  selectedRoom,
-  reservations,
-  onReturn
-}: SelectDateFormProps) => {
+export const CreateReservationForm = () => {
+  const { room: selectedRoom, reservations } = useLoaderData<{
+    room: Room;
+    reservations: Reservation[];
+  }>();
   const {
     register,
     onSubmit,
@@ -54,7 +49,8 @@ export const CreateReservationForm = ({
             <LabelWithInput
               label="Name"
               inputProps={{
-                ...register('name', { required: true })
+                ...register('name', { required: true }),
+                placeholder: 'Reservation name'
               }}
               errorLabel={errors.name?.message}
             />
@@ -62,7 +58,8 @@ export const CreateReservationForm = ({
               label="Start date"
               inputProps={{
                 ...register('startDate', { required: true }),
-                type: 'datetime-local'
+                type: 'datetime-local',
+                placeholder: 'Start date'
               }}
               errorLabel={errors.startDate?.message}
             />
@@ -70,7 +67,8 @@ export const CreateReservationForm = ({
               label="End date"
               inputProps={{
                 ...register('endDate', { required: true }),
-                type: 'datetime-local'
+                type: 'datetime-local',
+                placeholder: 'End date'
               }}
               errorLabel={errors.endDate?.message}
             />
@@ -86,8 +84,8 @@ export const CreateReservationForm = ({
             {conflictingReservation && (
               <ConflictingReservationInfo data={conflictingReservation} />
             )}
-            <Button className="w-full bg-black" onClick={onReturn}>
-              Return
+            <Button className="w-full bg-black">
+              <a href="/create-reservation">Return</a>
             </Button>
           </CardFooter>
         </Form>

@@ -21,7 +21,7 @@ export const LoginForm = () => {
   } = useSignIn();
 
   return (
-    <Form onSubmit={onSubmit} className="flex justify-start">
+    <Form onSubmit={onSubmit} className="flex justify-start" action="/">
       <Card>
         <CardHeader>
           <CardTitle>
@@ -31,18 +31,23 @@ export const LoginForm = () => {
         <CardContent>
           <LabelWithInput
             label="Email"
+            labelProps={{ htmlFor: 'email-field' }}
             inputProps={{
               ...register('email', { required: true }),
-              type: 'email'
+              type: 'email',
+              placeholder: 'Email'
             }}
             errorLabel={errors.email?.message}
           />
           <LabelWithInput
             label="Password"
+            labelProps={{ htmlFor: 'password-field' }}
             inputProps={{
               ...register('password', { required: true }),
-              type: 'password'
+              type: 'password',
+              placeholder: 'Password'
             }}
+            errorLabel={errors.password?.message}
           />
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">
@@ -51,7 +56,7 @@ export const LoginForm = () => {
           </Button>
           <p>
             Don't have account?{' '}
-            <a href="sign-up" className="font-semibold">
+            <a href="/sign-up" className="font-semibold">
               Sign up here
             </a>
           </p>

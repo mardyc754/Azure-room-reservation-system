@@ -26,7 +26,7 @@ export const ReservationCard = ({ data }: ReservationCardProps) => {
   const fetcher = useFetcher();
 
   return (
-    <Card>
+    <Card data-testid="reservation-card">
       <CardHeader>
         <CardTitle>{name}</CardTitle>
         <CardDescription>{roomName}</CardDescription>

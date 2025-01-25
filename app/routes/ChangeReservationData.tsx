@@ -1,3 +1,4 @@
+import { data, redirect } from 'react-router';
 import { ChangeReservationDataForm } from '@/components/forms/ChangeReservationDataForm';
 import { PageWrapper } from '@/components/PageWrapper';
 
@@ -9,7 +10,6 @@ import {
 } from '@/server/reservation.server';
 import type { ChangeReservationData } from '@/schemas/reservation';
 import type { Reservation, User } from '@/db/schema';
-import { redirect } from 'react-router';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -27,7 +27,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   const reservations = await getReservationsByRoomId(reservationId);
 
   if (!reservations) {
-    return new Response('Room not found', { status: 404 });
+    return data('Room not found', { status: 404 });
   }
 
   return { reservation, existingReservations };
@@ -62,10 +62,7 @@ export default function ChangeReservationData({
     <PageWrapper>
       {params.reservationId && (
         <div className="flex flex-col space-y-4 items-center justify-center">
-          <ChangeReservationDataForm
-            reservation={loaderData.reservation}
-            existingReservations={loaderData.existingReservations}
-          />
+          <ChangeReservationDataForm />
         </div>
       )}
     </PageWrapper>

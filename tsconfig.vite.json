@@ -12,7 +12,12 @@
     "composite": true,
     "strict": true,
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["vite/client"],
+    "types": [
+      "vite/client",
+      "vitest/globals",
+      "@testing-library/dom",
+      "@testing-library/jest-dom"
+    ],
     "target": "ES2022",
     "module": "ES2022",
     "moduleResolution": "bundler",

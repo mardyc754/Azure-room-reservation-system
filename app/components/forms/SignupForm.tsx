@@ -30,24 +30,30 @@ export const SignupForm = () => {
         <CardContent>
           <LabelWithInput
             label="Username"
+            labelProps={{ htmlFor: 'username-field' }}
             inputProps={{
-              ...register('username', { required: true })
+              ...register('username', { required: true }),
+              placeholder: 'Username'
             }}
             errorLabel={errors.username?.message}
           />
           <LabelWithInput
             label="Email"
+            labelProps={{ htmlFor: 'email-field' }}
             inputProps={{
+              ...register('email', { required: true }),
               type: 'email',
-              ...register('email', { required: true })
+              placeholder: 'Email'
             }}
             errorLabel={errors.email?.message}
           />
           <LabelWithInput
             label="Password"
+            labelProps={{ htmlFor: 'password-field' }}
             inputProps={{
-              type: 'password',
-              ...register('password', { required: true })
+              ...register('password', { required: true }),
+              placeholder: 'Password',
+              type: 'password'
             }}
             errorLabel={errors.password?.message}
           />

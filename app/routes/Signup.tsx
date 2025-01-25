@@ -1,11 +1,13 @@
+import { redirect } from 'react-router';
+
+import { signUp } from '@/server/auth.server';
+
 import { PageWrapper } from '@/components/PageWrapper';
 import { SignupForm } from '@/components/forms/SignupForm';
 
-import { signUp } from '@/server/auth.server';
 import type { SignupData } from '@/schemas/auth';
 
 import type { Route } from './+types/Signup';
-import { redirect } from 'react-router';
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: 'Sign up' }, { name: 'description', content: 'Signup' }];

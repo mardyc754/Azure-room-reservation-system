@@ -1,12 +1,11 @@
 import type { Room } from '@/db/schema';
 
 import { Button } from '../Button';
+import { useLoaderData } from 'react-router';
 
-type ReservationFormProps = {
-  data: Room[];
-};
+export const SelectRoomForm = () => {
+  const data = useLoaderData<Room[]>();
 
-export const SelectRoomForm = ({ data }: ReservationFormProps) => {
   return (
     <div className="flex flex-col space-y-4">
       <h1 className="text-2xl">Select a room:</h1>
