@@ -11,6 +11,7 @@ import { PageWrapper } from '@/components/PageWrapper';
 import { CreateReservationForm } from '@/components/forms/CreateReservationForm';
 
 import type { Route } from './+types/CreateReservation';
+import { getCurrentUser } from '@/server/auth.server';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -36,8 +37,13 @@ export async function action({ request }: Route.ActionArgs) {
   }
 }
 
-export async function loader({ params }: Route.LoaderArgs) {
-  // return await getAllRooms();
+export async function loader({ request, params }: Route.LoaderArgs) {
+  const user = await getCurrentUser(request);
+
+  if (!user) {
+    return redirect('/sign-in');
+  }
+
   const roomId = parseInt(params.roomId);
 
   const reservations = await getReservationsByRoomId(roomId);

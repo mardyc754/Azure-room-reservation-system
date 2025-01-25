@@ -1,21 +1,20 @@
 import { screen } from '@testing-library/react';
-import Home from '@/routes/Home';
+import { createRoutesStub } from 'react-router';
+
+import { HomePageButtons } from '@/components/HomePageButtons';
 
 import { renderComponent } from './testingHelpers';
 
-vi.mock('react-router', async () => {
-  const module = await vi.importActual('react-router');
-  return {
-    ...module,
-    Form: ({ children }: { children: React.ReactNode }) => (
-      <form>{children}</form>
-    )
-  };
-});
-
 describe('Home', () => {
   it('renders proper buttons when user is not authenticated', () => {
-    renderComponent(<Home />, { isAuthenticated: false });
+    const Stub = createRoutesStub([
+      {
+        path: '/',
+        Component: HomePageButtons
+      }
+    ]);
+
+    renderComponent(<Stub />, { isAuthenticated: false });
 
     expect(screen.getByRole('button', { name: 'Sign in' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Sign up' })).toBeInTheDocument();
@@ -29,7 +28,14 @@ describe('Home', () => {
   });
 
   it('renders proper buttons when user is authenticated', () => {
-    renderComponent(<Home />, { isAuthenticated: true });
+    const Stub = createRoutesStub([
+      {
+        path: '/',
+        Component: HomePageButtons
+      }
+    ]);
+
+    renderComponent(<Stub />, { isAuthenticated: true });
 
     expect(
       screen.queryByRole('button', { name: 'Sign in' })

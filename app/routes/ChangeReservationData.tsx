@@ -10,6 +10,7 @@ import {
 } from '@/server/reservation.server';
 import type { ChangeReservationData } from '@/schemas/reservation';
 import type { Reservation, User } from '@/db/schema';
+import { getCurrentUser } from '@/server/auth.server';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -18,7 +19,13 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader({ params }: Route.LoaderArgs) {
+export async function loader({ request, params }: Route.LoaderArgs) {
+  const user = await getCurrentUser(request);
+
+  if (!user) {
+    return redirect('/sign-in');
+  }
+
   const reservationId = parseInt(params.reservationId);
 
   const reservation = await getReservationById(reservationId);

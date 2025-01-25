@@ -1,6 +1,6 @@
-import { redirect } from 'react-router';
+import { data, redirect } from 'react-router';
 
-import { signUp } from '@/server/auth.server';
+import { getCurrentUser, signUp } from '@/server/auth.server';
 
 import { PageWrapper } from '@/components/PageWrapper';
 import { SignupForm } from '@/components/forms/SignupForm';
@@ -15,13 +15,19 @@ export function meta({}: Route.MetaArgs) {
 
 export async function action({ request }: Route.LoaderArgs) {
   try {
+    const user = await getCurrentUser(request);
+
+    if (user) {
+      return redirect('/');
+    }
+
     const data = (await request.json()) as SignupData;
     await signUp(data);
     redirect('/sign-in');
   } catch (error) {
     console.error(error);
     // return new Response(`Error when signing up: ${error}`, { status: 500 });
-    return new Response(`Error when signing up. Details: ${error}`, {
+    return data(`Error when signing up. Details: ${error}`, {
       status: 500
     });
   }
