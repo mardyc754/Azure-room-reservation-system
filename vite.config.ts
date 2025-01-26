@@ -5,7 +5,14 @@ import tailwindcss from 'tailwindcss';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vite';
 
-export default defineConfig({
+export default defineConfig(({ isSsrBuild }) => ({
+  build: {
+    rollupOptions: isSsrBuild
+      ? {
+          input: './server/app.ts'
+        }
+      : undefined
+  },
   css: {
     postcss: {
       plugins: [tailwindcss, autoprefixer]
@@ -17,4 +24,4 @@ export default defineConfig({
     setupFiles: ['./vitest-setup.ts'],
     globals: true
   }
-});
+}));

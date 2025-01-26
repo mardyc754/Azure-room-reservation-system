@@ -1,9 +1,9 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 // useful to convert units from minutes to hours, days to years, etc.
-import duration from "dayjs/plugin/duration";
+import duration from 'dayjs/plugin/duration';
 // humanizes input given by duration - can be useful in generating
 // how long ago particular comment was added (e.g. 4 years ago, 5 minutes ago)
-import relativeTime from "dayjs/plugin/relativeTime";
+import relativeTime from 'dayjs/plugin/relativeTime';
 // most important dayjs plugins
 // most of them are likely to be removed
 // plugin to change dayjs object into normal js object:
@@ -17,8 +17,8 @@ import relativeTime from "dayjs/plugin/relativeTime";
 //    "seconds":13,
 //    "years":2021
 // }
-import toObject from "dayjs/plugin/toObject";
-import updateLocale from "dayjs/plugin/updateLocale";
+import toObject from 'dayjs/plugin/toObject';
+import updateLocale from 'dayjs/plugin/updateLocale';
 // // plugin to enable custom formats.
 // // it can be used, for example, to extract hour from the date
 // // example - current hour: dayjs(new Date()).format('HH:mm').toString()
@@ -36,7 +36,7 @@ import updateLocale from "dayjs/plugin/updateLocale";
 // //to check the day of the year
 // import dayOfYear from 'dayjs/plugin/dayOfYear';
 // // to check the week number
-import weekOfYear from "dayjs/plugin/weekOfYear";
+import weekOfYear from 'dayjs/plugin/weekOfYear';
 
 // // to check the quarten
 // import quarterOfYear from 'dayjs/plugin/quarterOfYear';
@@ -61,6 +61,6 @@ dayjs.extend(relativeTime);
 
 dayjs.extend(updateLocale);
 
-dayjs.locale("pl");
+dayjs.locale('pl');
 
 export { dayjs };

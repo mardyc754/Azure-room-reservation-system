@@ -1,5 +1,5 @@
-import type { ButtonHTMLAttributes } from "react";
-import { Button as ShadcnButton } from "./ui/button";
+import type { ButtonHTMLAttributes } from 'react';
+import { Button as ShadcnButton } from './ui/button';
 
 export const Button = ({
   children,

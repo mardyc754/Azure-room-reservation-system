@@ -23,7 +23,7 @@ export async function action({ request }: Route.LoaderArgs) {
 
     const data = (await request.json()) as SignupData;
     await signUp(data);
-    redirect('/sign-in');
+    return redirect('/sign-in');
   } catch (error) {
     console.error(error);
     // return new Response(`Error when signing up: ${error}`, { status: 500 });

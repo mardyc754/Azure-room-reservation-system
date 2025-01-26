@@ -1,11 +1,6 @@
 import { Form, useLoaderData } from 'react-router';
 import type { Reservation } from '@/db/schema';
-import {
-  advanceByMinutes,
-  endOfDay,
-  formatDateTime,
-  nextDay
-} from '@/utils/dateUtils';
+import { advanceByMinutes, endOfDay, formatDateTime } from '@/utils/dateUtils';
 import type { FullReservationData } from '@/schemas/reservation';
 import { useConflictingReservations } from '@/hooks/useConflictingReservations';
 import { useChangeReservationData } from '@/hooks/useChangeReservationData';
@@ -74,7 +69,7 @@ const ChangeReservationDataFormContent = ({
             inputProps={{
               ...register('startDate', { required: true }),
               type: 'datetime-local',
-              min: formatDateTime(nextDay(new Date())),
+              min: formatDateTime(data.startDate),
               placeholder: 'Start date'
             }}
             errorLabel={errors.startDate?.message}

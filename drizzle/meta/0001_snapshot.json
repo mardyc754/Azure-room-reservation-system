@@ -44,26 +44,18 @@
         "reservations_room_id_rooms_id_fk": {
           "name": "reservations_room_id_rooms_id_fk",
           "tableFrom": "reservations",
-          "columnsFrom": [
-            "room_id"
-          ],
+          "columnsFrom": ["room_id"],
           "tableTo": "rooms",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         },
         "reservations_user_id_users_id_fk": {
           "name": "reservations_user_id_users_id_fk",
           "tableFrom": "reservations",
-          "columnsFrom": [
-            "user_id"
-          ],
+          "columnsFrom": ["user_id"],
           "tableTo": "users",
-          "columnsTo": [
-            "id"
-          ],
+          "columnsTo": ["id"],
           "onUpdate": "no action",
           "onDelete": "cascade"
         }
@@ -134,9 +126,7 @@
       "uniqueConstraints": {
         "users_email_unique": {
           "name": "users_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "nullsNotDistinct": false
         }
       },
