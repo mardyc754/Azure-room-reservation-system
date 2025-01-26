@@ -25,6 +25,6 @@ COPY --from=build-env /app/build /app/build
 WORKDIR /app
 
 ENV NODE_ENV=production
-EXPOSE 3000
+EXPOSE 8080
 
 CMD ["pnpm", "start"]
