@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies, build and test
         run: |
           pnpm install
-          pnpm build
+          pnpm run build
           pnpm test
 
       - name: Zip artifact for deployment
@@ -49,11 +49,12 @@ jobs:
           path: release.zip
 
   deploy:
+    name: Deploy to Azure Web App
     runs-on: ubuntu-latest
     needs: build
     environment:
       name: 'Production'
-      url: ${{ secrets.WEB_APP_URL }}
+      url: 'https://${{ env.WEBAPP_NAME }}.azurewebsites.net/'
     permissions:
       id-token: write #This is required for requesting the JWT
 
