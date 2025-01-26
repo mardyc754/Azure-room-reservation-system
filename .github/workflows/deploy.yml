@@ -55,7 +55,6 @@ jobs:
     needs: build
     environment:
       name: 'Production'
-      url: 'https://${{ env.WEBAPP_NAME }}.azurewebsites.net/'
     permissions:
       id-token: write #This is required for requesting the JWT
 
@@ -68,17 +67,10 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.WEB_APP_CLIENT_ID }}
-          tenant-id: ${{ secrets.WEB_APP_DIRECTORY_ID }}
-          subscription-id: ${{ secrets.WEB_APP_SUBSCRIPTION_ID  }}
-
-      - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'azure-room-reservation-system'
+          app-name: azure-room-reservation-system
           slot-name: 'Production'
+          publish-profile: ${{ secrets.AZURE_CREDENTIALS }}
           package: release.zip
