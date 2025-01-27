@@ -41,12 +41,12 @@ jobs:
           pnpm test
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: zip release.zip ./* -qr
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: azure-room-reservation-system
+          name: azure-room-reservation
           path: release.zip
 
   deploy:
@@ -63,7 +63,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: azure-room-reservation-system
+          name: azure-room-reservation
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
@@ -71,7 +71,7 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: azure-room-reservation-system
+          app-name: 'azure-room-reservation'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZURE_CREDENTIALS }}
           package: release.zip
