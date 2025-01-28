@@ -8,7 +8,7 @@
     "db:generate": "dotenv -- drizzle-kit generate",
     "db:migrate": "dotenv -- drizzle-kit migrate",
     "dev": "dotenv -- node server.js",
-    "start": "node server.js",
+    "start": "node --env-file=.env server.js",
     "typecheck": "react-router typegen && tsc -b",
     "prettier": "prettier --write ."
   },
