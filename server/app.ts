@@ -1,6 +1,7 @@
 import { createRequestHandler } from '@react-router/express';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import express from 'express';
+import appInsights from 'applicationinsights';
 import postgres from 'postgres';
 import 'react-router';
 
@@ -20,6 +21,12 @@ if (!process.env.DATABASE_URL) throw new Error('DATABASE_URL is required');
 const client = postgres(process.env.DATABASE_URL);
 const db = drizzle(client, { schema });
 app.use((_, __, next) => DatabaseContext.run(db, next));
+
+appInsights
+  .setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING)
+  .enableWebInstrumentation(true)
+  .setAutoCollectRequests(true)
+  .start();
 
 app.use(
   createRequestHandler({
