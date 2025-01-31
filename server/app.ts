@@ -25,8 +25,22 @@ app.use((_, __, next) => DatabaseContext.run(db, next));
 appInsights
   .setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING)
   .enableWebInstrumentation(true)
-  .setAutoCollectRequests(true)
+  .setAutoDependencyCorrelation(true)
+  .setAutoCollectRequests(true) // Track HTTP requests
+  .setAutoCollectExceptions(true) // Track unhandled exceptions
   .start();
+
+const appInsightsClient = appInsights.defaultClient;
+
+app.use((req, _, next) => {
+  appInsightsClient.trackPageView({
+    id: req.path,
+    name: req.path,
+    url: req.protocol + '://' + req.get('host') + req.originalUrl
+  });
+
+  next();
+});
 
 app.use(
   createRequestHandler({
