@@ -1,100 +1,52 @@
-# Welcome to React Router!
+# Azure Room Reservation System
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Aplikacja do rezerwacji pomieszczeń w danym budynku (np. w hotelu), napisana przy użyciu TypeScript oraz React Router.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## Stos technologiczny
 
-## Features
+- TypeScript
+- React Router - główna aplikacja
+- Vitest - testy jednostkowe
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+## Infrastruktura aplikacji
 
-## Getting Started
+Infrastruktura aplikacji została utworzona z wykorzystaniem narzędzi Azure.
 
-### Installation
+![architecture diagram](docs/architecture_diagram.png)
 
-Install the dependencies:
+### Główne elementy aplikacji
 
-```bash
-npm install
-```
+- **Azure Webapp** - aplikacja do tworzenia rezerwacji na dane pokoje,
+- **Azure Cosmos DB for PostgreSQL** - baza danych,
+- **Azure Function** - zawiera funkcję odpowiedzialną za wysyłanie powiadomień e-mail do użytkowników, których rezerwacja przypada na dany dzień. Funkcja jest uruchamiana codziennie o godzinie 9:00 rano.
 
-### Development
+### Monitoring
 
-Start the development server with HMR:
+W aplikacji wykorzystano następujące elementy monitoringu:
 
-```bash
-npm run dev
-```
+- **Application Insights** - obserwowanie i monitoring aplikacji
+- **Metryki** - biznesowe z działania aplikacji
+- **Alerty** - informowanie o zwiększonym ruchu na stronie
 
-Your application will be available at `http://localhost:5173`.
+## Budowanie i wdrożenie aplikacji
 
-## Building for Production
+Proces budowania aplikacji odbywa się poprzez GitHub Actions (plik **.github/workflows/deploy.yml**) i jest złożony z dwóch procesów:
 
-Create a production build:
+- **Build and test** - w trakcie tego procesu instalowane są pakiety niezbędne do uruchomienia aplikacji, następnie przeprowadzane są testy jednostkowe. Jeśli testy zakończą się pomyślnie, następuje zbudowanie aplikacji.
+- **Deploy to Azure Webapp** - proces ten odpowiada za wdrożenie zbudowanej w poprzednim kroku aplikacji do Azure Webapp
 
-```bash
-npm run build
-```
+## Funkcjonalności biznesowe aplikacji
 
-## Deployment
+### Użytkownik niezalogowany
 
-### Docker Deployment
+- Logowanie
+- Rejestracja
 
-This template includes three Dockerfiles optimized for different package managers:
+### Użytkownik zalogowany
 
-- `Dockerfile` - for npm
-- `Dockerfile.pnpm` - for pnpm
-- `Dockerfile.bun` - for bun
-
-To build and run using Docker:
-
-```bash
-# For npm
-docker build -t my-app .
-
-# For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
-
-# For bun
-docker build -f Dockerfile.bun -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+- Wybór pokoju
+- Wybór terminu rezerwacji na dany pokój
+- Tworzenie rezerwacji
+- Zmiana terminu rezerwacji
+- Odwołanie (usuwanie) rezerwacji
+- Wylogowanie się z serwisu
