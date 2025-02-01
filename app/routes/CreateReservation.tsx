@@ -45,13 +45,13 @@ export async function loader({ request, params }: Route.LoaderArgs) {
   }
 
   const roomId = parseInt(params.roomId);
-
-  const reservations = await getReservationsByRoomId(roomId);
   const room = await getRoomById(roomId);
 
-  if (!reservations) {
+  if (!room) {
     return data('Room not found', { status: 404 });
   }
+
+  const reservations = await getReservationsByRoomId(roomId);
 
   return { reservations, room };
 }
